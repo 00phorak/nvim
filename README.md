@@ -11,7 +11,7 @@ First backup existing nvim configuration. Clear cache etc. to have a clean insta
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 ```
-    - If there's a problem with packer, delete compiled packer and run PackerCompile
+ If there's a problem with packer, delete compiled packer and run PackerCompile
 - Open nvim and run PackerSync
 
 Enjoy
