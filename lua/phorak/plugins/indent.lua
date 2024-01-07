@@ -3,7 +3,7 @@ return {
 	main = "ibl",
 	opts = {
 		indent = {
-			char = {"│"},
+			char = { "│" },
 		},
 		scope = {
 			show_exact_scope = false,

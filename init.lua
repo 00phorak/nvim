@@ -1,22 +1,12 @@
+-- Hack the clipboard function on nvim startup
+-- because _some_ plugin is messing up with clipboard on nvim startup
+local function get_reg(char)
+	-- return vim.api.nvim_exec([[echo getreg(']] .. char .. [[')]], true):gsub("[\n\r]", "^J")
+	return vim.api.nvim_exec([[echo getreg(']] .. char .. [[')]], true)
+end
+
+local before = get_reg("+")
+vim.opt.clipboard = "unnamedplus"
 require("phorak")
 
-local set= vim.opt
-
-vim.loader.enable()
-set.clipboard='unnamedplus'
-set.completeopt='noinsert,menuone,noselect'
-set.hidden=true
-set.autoindent=true
-set.mouse='a'
-set.number=true
-set.relativenumber=true
-set.title=true
-set.ttyfast=true
-set.shiftwidth=4
-set.expandtab=false
-set.tabstop=4
-set.hlsearch=true
-set.incsearch=true
-set.showmatch=true
-set.list = false
-
+vim.fn.setreg('"', before)
