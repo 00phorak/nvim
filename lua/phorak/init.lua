@@ -25,7 +25,14 @@ require("lazy").setup({
 		'nvim-lua/plenary.nvim',
 		"nvim-treesitter/nvim-treesitter-context",
 		'mfussenegger/nvim-dap',
-		"rcarriga/nvim-dap-ui",
+		{
+			"folke/neodev.nvim",
+			dependencies = { "rcarriga/nvim-dap-ui" },
+			opts = {
+				library = { plugins = { "nvim-dap-ui" }, types = true },
+
+			}
+		}
 	},
 	{
 		change_detection = {
