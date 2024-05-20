@@ -28,20 +28,20 @@ local autocmd = vim.api.nvim_create_autocmd
 local yank_group = vim.api.nvim_create_augroup('HighlightYank', { clear = false })
 
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "File explorer" })
-local set = vim.keymap.set
-set("n", "]d", vim.diagnostic.goto_next)
-set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = "File explorer" })
+local keymap = vim.keymap.set
+keymap("n", "]d", vim.diagnostic.goto_next)
+keymap("n", "[d", vim.diagnostic.goto_prev)
 
 -- Move visual selection around
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+keymap("v", "J", ":m '>+1<CR>gv=gv")
+keymap("v", "K", ":m '<-2<CR>gv=gv")
 -- When jumping around _next_ search fields, center the screen
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+keymap("n", "n", "nzzzv")
+keymap("n", "N", "Nzzzv")
 -- Center it when jumping up and down
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+keymap("n", "<C-d>", "<C-d>zz")
+keymap("n", "<C-u>", "<C-u>zz")
 
 -- Map <Esc> to normal mode and clear search highlight
 vim.api.nvim_set_keymap('n', '<Esc>', ':noh<CR>', { noremap = true, silent = true })
@@ -84,9 +84,11 @@ autocmd('LspAttach', {
 
 		vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP Go Definition" })
-		vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end,
+		vim.keymap.set("n", "<leader>k", function() vim.lsp.buf.hover() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP Hover" })
-		vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end,
+		vim.keymap.set("n", "<leader>s", function() vim.lsp.buf.symbol() end,
+			{ buffer = ev.buf, remap = false, desc = "LSP Symbol" })
+		vim.keymap.set("n", "<leader>S", function() vim.lsp.buf.workspace_symbol() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP Workspace Symbol" })
 		vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP Open Flaot" })
@@ -94,6 +96,8 @@ autocmd('LspAttach', {
 			{ buffer = ev.buf, remap = false, desc = "LSP Code Action" })
 		vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP References" })
+		vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end,
+			{ buffer = ev.buf, remap = false, desc = "LSP Implementation" })
 		vim.keymap.set("n", "<leader>r", function() vim.lsp.buf.rename() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP Rename" })
 		vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end,

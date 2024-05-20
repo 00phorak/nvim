@@ -6,9 +6,9 @@ return {
 		})
 		vim.keymap.set("n", "<leader>tt", function() require("trouble").toggle() end,
 			{ remap = false, desc = "LSP Trouble Toggle" })
-		vim.keymap.set("n", "gw", function() require("trouble").toggle("workspace_diagnostics") end,
+		vim.keymap.set("n", "<leader>D", function() require("trouble").toggle("workspace_diagnostics") end,
 			{ remap = false, desc = "LSP Trouble Workspace Diagnostics" })
-		vim.keymap.set("n", "gl", function() require("trouble").toggle("document_diagnostics") end,
+		vim.keymap.set("n", "<leader>d", function() require("trouble").toggle("document_diagnostics") end,
 			{ remap = false, desc = "LSP Trouble Document Diagnostics" })
 		vim.keymap.set("n", "gq", function() require("trouble").toggle("quickfix") end,
 			{ remap = false, desc = "LSP Trouble QuickFix" })

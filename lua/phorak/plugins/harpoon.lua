@@ -6,7 +6,7 @@ return {
 
 
 		vim.keymap.set("n", "<leader>A", mark.add_file, { desc = "Harpoon add file" })
-		vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu, { desc = "Harpoon toggle menu" })
+		vim.keymap.set("n", "<leader>j", ui.toggle_quick_menu, { desc = "Harpoon toggle menu (jumplist)" })
 
 		vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end, { desc = "Harpoon nav file 1" })
 		vim.keymap.set("n", "<C-j>", function() ui.nav_file(2) end, { desc = "Harpoon nav file 2" })

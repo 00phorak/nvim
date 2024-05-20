@@ -8,6 +8,7 @@ return {
 		scope = {
 			show_exact_scope = false,
 			priority = 500,
+			enabled = true,
 		}
 	}
 }
