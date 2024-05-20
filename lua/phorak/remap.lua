@@ -22,14 +22,16 @@ vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 -- Remap some things
-local augroup = vim.api.nvim_create_augroup
-local custom_group = augroup('custom_group', {})
+local custom_group = vim.api.nvim_create_augroup('custom_group', { clear = false })
 
 local autocmd = vim.api.nvim_create_autocmd
-local yank_group = augroup('HighlightYank', {})
+local yank_group = vim.api.nvim_create_augroup('HighlightYank', { clear = false })
 
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "File explorer" })
+local set = vim.keymap.set
+set("n", "]d", vim.diagnostic.goto_next)
+set("n", "[d", vim.diagnostic.goto_prev)
 
 -- Move visual selection around
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -88,11 +90,11 @@ autocmd('LspAttach', {
 			{ buffer = ev.buf, remap = false, desc = "LSP Workspace Symbol" })
 		vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP Open Flaot" })
-		vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end,
+		vim.keymap.set("n", "<leader>a", function() vim.lsp.buf.code_action() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP Code Action" })
-		vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end,
+		vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP References" })
-		vim.keymap.set("n", "<leader>R", function() vim.lsp.buf.rename() end,
+		vim.keymap.set("n", "<leader>r", function() vim.lsp.buf.rename() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP Rename" })
 		vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end,
 			{ buffer = ev.buf, remap = false, desc = "LSP Signature Help" })

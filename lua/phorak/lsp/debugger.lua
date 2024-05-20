@@ -1,5 +1,49 @@
 return {
 	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"leoluz/nvim-dap-go",
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+			"nvim-neotest/nvim-nio",
+			"williamboman/mason.nvim",
+		},
+		config = function()
+			local dap = require "dap"
+			local ui = require "dapui"
+
+			require("dapui").setup()
+			require("dap-go").setup()
+			vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
+			vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
+
+			-- Eval var under cursor
+			vim.keymap.set("n", "<space>?", function()
+				require("dapui").eval(nil, { enter = true })
+			end)
+
+			vim.keymap.set("n", "<F1>", dap.continue, { desc = "Debug Continue" })
+			vim.keymap.set("n", "<F2>", dap.step_into, { desc = "Debug Step Into" })
+			vim.keymap.set("n", "<F3>", dap.step_over, { desc = "Debug Step Over" })
+			vim.keymap.set("n", "<F4>", dap.step_out, { desc = "Debug Step Out" })
+			vim.keymap.set("n", "<F5>", dap.step_back, { desc = "Debug Step Back" })
+			vim.keymap.set("n", "<F13>", dap.restart, { desc = "Debug Restart" })
+
+			dap.listeners.before.attach.dapui_config = function()
+				ui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				ui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				ui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				ui.close()
+			end
+		end
+	},
+	{
 		"leoluz/nvim-dap-go",
 		dependencies = { "mfussenegger/nvim-dap" },
 		opts = {}
@@ -9,36 +53,7 @@ return {
 		dependencies = { "mfussenegger/nvim-dap" },
 		opts = {},
 		init = function()
-			local dap, dapui = require("dap"), require("dapui")
-			dap.listeners.before.attach.dapui_config = function()
-				dapui.open()
-			end
-			dap.listeners.before.launch.dapui_config = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated.dapui_config = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited.dapui_config = function()
-				dapui.close()
-			end
-
-			vim.keymap.set("n", "<F7>", function() require("dapui").toggle() end,
-				{ remap = false, desc = "Debugger Toggle" })
-			vim.keymap.set("n", "<leader>b", function() require("dap").toggle_breakpoint() end,
-				{ remap = false, desc = "Debugger Add/Remove Breakpoint" })
-			vim.keymap.set("n", "<F5>", function() require("dap").continue() end,
-				{ remap = false, desc = "Debugger Continue" })
-			vim.keymap.set("n", "<F8>", function() require("dap").step_over() end,
-				{ remap = false, desc = "Debugger Step Over" })
-			vim.keymap.set("n", "<F9>", function() require("dap").step_into() end,
-				{ remap = false, desc = "Debugger Step Into" })
-			vim.keymap.set("n", "<F10>", function() require("dap").step_out() end,
-				{ remap = false, desc = "Debugger Step Out" })
-			vim.keymap.set("n", "<F12>", function() require("dap").repl.toggle() end,
-				{ remap = false, desc = "Debugger Open REPL" })
-			vim.keymap.set("n", "<leader>dr", function() require("dap").run_last() end,
-				{ remap = false, desc = "Debugger Open REPL" })
+			local dap = require("dap")
 
 			-- Debuggers
 			-- Mostly copy-paste from https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/configurations.lua

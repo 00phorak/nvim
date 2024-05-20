@@ -10,6 +10,7 @@ return {
 			'hrsh7th/cmp-cmdline',
 			'hrsh7th/nvim-cmp',
 			'saadparwaiz1/cmp_luasnip',
+			'stevearc/conform.nvim'
 		},
 		config = function()
 			vim.diagnostic.config({
@@ -81,7 +82,7 @@ return {
 					['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
 					['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
 					-- ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-f>"] = cmp.mapping.complete(),
 				}),
 				sources = cmp.config.sources({
 					{ name = 'nvim_lsp' },
@@ -90,6 +91,21 @@ return {
 					{ name = 'buffer' },
 				})
 			}
+
+			require("conform").setup {
+				formatters_by_ft = {
+					lua = { "stylua" },
+				},
+			}
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				callback = function(args)
+					require("conform").format {
+						bufnr = args.buf,
+						lsp_fallback = true,
+						quiet = true,
+					}
+				end,
+			})
 		end,
 	},
 }

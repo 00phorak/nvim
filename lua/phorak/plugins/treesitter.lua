@@ -1,10 +1,10 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	dependencies = { "HiPhish/nvim-ts-rainbow2" },
+	build = ":TSUpdate",
 	config = function()
 		require 'nvim-treesitter.configs'.setup {
 			-- A list of parser names, or "all" (the five listed parsers should always be installed)
-			ensure_installed = { "c", "lua", "json", "vim", "vimdoc", "query", "rust", "go", "yaml", "toml", "python" },
+			ensure_installed = { "c", "lua", "json", "vim", "vimdoc", "bash", "query", "rust", "go", "yaml", "toml", "python" },
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)
 			sync_install = false,
@@ -12,11 +12,12 @@ return {
 			-- Automatically install missing parsers when entering buffer
 			-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
 			auto_install = true,
-			rainbow = {
-				enable = true,
-				extended_mode = true,
-				max_file_lines = nil,
-			},
+			indent = { enable = true },
+			-- rainbow = {
+			-- 	enable = true,
+			-- 	extended_mode = true,
+			-- 	max_file_lines = nil,
+			-- },
 			highlight = {
 				enable = true,
 

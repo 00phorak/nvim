@@ -8,5 +8,4 @@ end
 local before = get_reg("+")
 vim.opt.clipboard = "unnamedplus"
 require("phorak")
-
 vim.fn.setreg('"', before)
