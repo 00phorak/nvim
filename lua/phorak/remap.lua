@@ -29,6 +29,7 @@ local yank_group = vim.api.nvim_create_augroup('HighlightYank', { clear = false 
 
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = "File explorer" })
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 local keymap = vim.keymap.set
 keymap("n", "]d", vim.diagnostic.goto_next)
 keymap("n", "[d", vim.diagnostic.goto_prev)
