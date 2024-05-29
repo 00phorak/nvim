@@ -25,6 +25,9 @@ return {
 				vim.lsp.protocol.make_client_capabilities(),
 				cmp_lsp.default_capabilities())
 
+			local lspconfig = require("lspconfig")
+			lspconfig.gleam.setup({})
+
 
 			require("mason").setup()
 			require("mason-lspconfig").setup {
@@ -36,7 +39,6 @@ return {
 						}
 					end,
 					["rust_analyzer"] = function()
-						local lspconfig = require("lspconfig")
 						lspconfig.rust_analyzer.setup {
 							settings = {
 								['rust-analyzer'] = {
@@ -52,7 +54,6 @@ return {
 						}
 					end,
 					["lua_ls"] = function()
-						local lspconfig = require("lspconfig")
 						lspconfig.lua_ls.setup {
 							capabilities = capabilities,
 							settings = {
